@@ -42,3 +42,26 @@ export const getTableController = async (req, res)=>{
         
     }
 }
+
+export const editController = async (req, res)=>{
+    try {
+        console.log( req.body);
+        const {id} = req.params;
+        const updatedData = await detailsModel.findByIdAndUpdate(id,req.body,{new: true})
+        res.status(200).json({msg:`Updated the new values`})
+        
+    } catch (error) {
+        res.status(400).json({msg:`something error`, error:error})
+        
+    }
+}
+
+export const deleteController = async(req, res)=>{
+    try {
+        const deleteData = await detailsModel.findByIdAndDelete(req.params.id, {new:true})
+        res.status(200).json({msg:"Data deleted"})
+        
+    } catch (error) {
+        res.status(400).json({msg:"something error", error:error})
+    }
+}
